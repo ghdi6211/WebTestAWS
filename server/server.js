@@ -1,23 +1,27 @@
-const express = require('express');
+const express = require("express"); 
 const app = express();
-const PORT = process.env.PORT || 4000;
-const db = require('./config/db');
+const port = 4000; // react의 기본값은 3000이니까 3000이 아닌 아무 수
+const cors = require("cors");
+const bodyParser = require("body-parser");
 
-app.get('/api/host', (req, res) => {
-    res.send({ host : 'root' });
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(cors());
+
+app.get('/', (req, res) =>{
+    res.send('혁이는 코딩 중!')
 })
 
-app.get('/api/test', (req, res) => {
-    db.query("select * from words", (err, data) => {
-        if(!err) {
-            res.send(data);
+app.post("/idplz", (req,res)=>{
+    const serverid = req.body.plzid;
+    console.log(serverid);
+    const sendText = {
+        text : "열심히 코딩 중",
+    };
+    res.send(sendText);
+    
+});
 
-        } else {
-            console.log(err);
-            res.send(err);
-        }
-    })
-})
-app.listen(PORT, () => {
-    console.log(`Server On : http://localhost:${PORT}/`);
+app.listen(port, ()=>{
+    console.log(`Connect at http://localhost:${port}`);
 })
