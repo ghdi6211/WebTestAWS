@@ -8,9 +8,15 @@ import CreateDay from './component/CreateDay';
 import DeleteDay from './component/DeleteDay';
 import axios from 'axios';
 
-
 function App() {
-  axios.get('/words')
+  function componentDidMount() {
+    this._dbTest();
+  }
+  
+  _dbTest = async() => {
+    const res = await axios.get('/api/test');
+    console.log(res.data)
+  }
   return (
     <BrowserRouter>
       <div className="App">
